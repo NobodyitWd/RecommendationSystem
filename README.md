@@ -1,0 +1,2 @@
+# RecommendationSystem
+Скелет системы рекомендации.
