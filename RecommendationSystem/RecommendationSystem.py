@@ -76,13 +76,15 @@ def File(text):
     file = open("memory.txt", "a", encoding="UTF-8")
     file.write(str(text)+"\n") # Запиши текст и перейди на новую строку.
     file.close()
-def MarkPl(list,listM):
+els = 0
+def MarkPl(list,listM,els):
     timeL = "" # Собираем последовательность ответов.
     for i in list:
         mark = input("Оцените пожалуйста " + str(i) + ":    ")
         if int(mark) <= 5 and int(mark) >= 1:
             timeL += (mark)
         else:
+            els += 1
             print("Введите корректное число!")
             exit(0)
     listM.append(timeL) # Добавь ответы в список.
@@ -93,6 +95,7 @@ genre = ["Ужасы","Мистерия","Боевик","Комедия","Фан
 listM = []
 horrors = ["Оцепеневшие от страха","ОНО","ОНО 2","Детские игры","Детские игры 2","Детские игры 3","Невеста Чаки","Потомство Чаки","Проклятье Чаки","Культ Чаки","Синистер","Астрал","Заклятье"]
 horrorsM = []
+
 i = 0
 o = 0
 k = []
@@ -113,14 +116,15 @@ idelF = []
 
 name = input("Пожалуйста введите ваше имя:   ") # В качестве примера мы используем имена, однако в настоящей программе следует использовать id.
 if Log(name) == 0: # Если вы не зарегистрированные.
-    File("@"+name) # Узнать имя и добавить данные с оценками
     print("Пожалуйста поставьте оценку от 1 до 5.")
-    MarkPl(genre,listM) # Обработай все ответы и запиши в listM. listM - list Marks.
+    MarkPl(genre,listM,els) # Обработай все ответы и запиши в listM. listM - list Marks.
     print("Пожалуйста оцените фильмы ужасов которые знаете. 1 до 5.") # Следует выбрать жанры с наивысшей оценкой. Однако в качестве примера выберем Ужасы.
-    MarkPl(horrors,horrorsM) # Обработай все ответы и запиши в horrorsM. horrorsM - horrors Marks.
+    MarkPl(horrors,horrorsM,els) # Обработай все ответы и запиши в horrorsM. horrorsM - horrors Marks.
 
-    File(str(listM)[2:-2]) # Запиши все ответы в файл (убери все черточки и кавычки).
-    File(str(horrorsM)[2:-2]) # Запиши все ответы в файл (убери все черточки и кавычки).
+    if els != 1:
+        File("@"+name)  # Узнать имя и добавить данные с оценками
+        File(str(listM)[2:-2]) # Запиши все ответы в файл (убери все черточки и кавычки).
+        File(str(horrorsM)[2:-2]) # Запиши все ответы в файл (убери все черточки и кавычки).
 
 file = open("memory.txt","r",encoding="UTF-8")
 reader = file.read()
